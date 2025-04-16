@@ -29,7 +29,8 @@ public class EmailTest {
     // Valid input: should add 2 BCC addresses
     @Test
     public void testAddBcc_Valid() throws Exception {
-        email.addBcc("a@test.com", "b@test.com");
+        email.addBcc("a@test.com");
+        email.addBcc("b@test.com");
         assertEquals(2, email.getBccAddresses().size());
     }
 
@@ -109,6 +110,7 @@ public class EmailTest {
     // Missing from address: should throw EmailException (required fields not set)
     @Test
     public void testBuildMimeMessage_MissingFrom() throws Exception {
+        email.setHostName("smtp.test.com"); // required for getMailSession()
         email.setSubject("Test Subject");
         email.addTo("to@test.com");
         email.setMsg("This is the body.");
@@ -123,6 +125,7 @@ public class EmailTest {
     // All fields valid: should build MimeMessage successfully
     @Test
     public void testBuildMimeMessage_Success() throws Exception {
+        email.setHostName("smtp.test.com");
         email.setFrom("from@test.com");
         email.setSubject("Hi");
         email.setMsg("Hello world");
@@ -161,7 +164,7 @@ public class EmailTest {
     // Hostname is set: should return Session successfully
     @Test
     public void testGetMailSession_Valid() throws Exception {
-        email = new MockEmail(); 
+        email = new MockEmail();
         email.setHostName("smtp.test.com");
         assertNotNull(email.getMailSession());
     }
@@ -214,5 +217,3 @@ public class EmailTest {
     }
 
 }
-
-
