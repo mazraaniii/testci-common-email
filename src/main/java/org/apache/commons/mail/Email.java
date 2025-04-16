@@ -1924,15 +1924,16 @@ public abstract class Email
      * @throws IllegalStateException when the mail session is already initialized
      */
     private void checkSessionAlreadyInitialized()
+{
+    if (this.session != null)
     {
-        if (this.session != null)
-        {
-            throw new IllegalStateException("The mail session is already initialized");
-   
-
-	protected Properties getHeaders() {
-		// TODO Auto-generated method stub
-		return null;
-	}     }
+        throw new IllegalStateException("The mail session is already initialized");
     }
+}
+
+protected Properties getHeaders()
+{
+    // TODO Auto-generated method stub
+    return null;
+}
 }
